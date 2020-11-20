@@ -2,10 +2,8 @@
 import time
 from random import choices
 def main():
-    """docsting"""
     box, rate_box, sr_box, sr_rate, ssr_box, ssr_rate, grade, get = [], [], [], [], [], [], [], []
     garuntee = 0
-
 
     while True:         #นำเข้าข้อมูลของ gacha โดยให้กรอก: ชื่อitem เรท% ถ้ากรอบครบแล้วให้พิมพ์ END
         item = input("Item:   ") #โดยที่ถ้าไม่สนใจของชิ้นไหนใน tier ให้รวม %ไปใน tier ได้เลย เช่น ตัวละครNo.1-->R แต่เราไม่สนใจให้รวมไปในเรท Rได้เลย
@@ -23,30 +21,21 @@ def main():
                 continue
             else:
                 break
+        if item == "ํ" or rate == "" or tier == "": # ถ้าจะออกจากหน้ากรอกให้เว้นว่างทุกช่อง
+            break
 
-
-        if tier == "SR" or tier == "SRR":#ประกัน 10
-            sr_box.append(item)
-            sr_rate.append(float(rate))
-            if tier == "SRR": #ประกันใหญ่
-                ssr_box.append(item)
-                ssr_rate.append(float(rate))
+        else: 
+            if tier == "SR" or tier == "SSR":#ประกัน 10
+                sr_box.append(item)
+                sr_rate.append(float(rate))
+                if tier == "SSR": #ประกันใหญ่
+                    ssr_box.append(item)
+                    ssr_rate.append(float(rate))                    
         box.append(item)
         rate_box.append(float(rate))
         grade.append(tier)
-        while True:
-            ation = input("Complete?(Y/N)")
-            if ation == "Y":
-                break
-            elif ation == "N":
-                break
-        if ation =="Y":
-            break
-        else:
-            continue
+        
     print(box)
-
-
     #rate_option = input("การคำนวณเรท:")#ในกรณีที่มีประกัน ถ้าเปิด10ครั้งรวด = No หรือ สะสมครบ10ครั้ง = YES
     garuntee_option = int(input("มีประกันrollที่:"))#ไม่มีให้ใส่-1
     #pickup_option = input("ประกันหน้าตู้ไหม:")#ออกหน้าตู้แน่นอน = YES
@@ -67,7 +56,7 @@ def main():
                     garuntee = 0
 
     for i in range(len(get)):
-        print(get[i][0])
+        print(get[i][0], "roll %s"%(i+1))
         time.sleep(0.2)
-    #print(choices(box, weights=rate_box, k=roll))
+    #print(choices(box, weights=rate_box, k=roll)
 main()
