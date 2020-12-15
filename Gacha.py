@@ -137,16 +137,22 @@ def sampling_g():
             for roll in range(1, roll_all+1):
                 garuntee += 1
                 if roll % roll_garuntee != 0:
-                    get.append(choices(box, weights=rate_box, k=1))
-                    if choices(box, weights=rate_box, k=1) in ssr_box: #ถ้าได้ SSR การันตีจะรีกับไปที่ 0
+                    if garuntee == garuntee_option: #ได้ SSR แน่นอน การันตีจะรีกับไปที่ 0
+                        get.append(choices(ssr_box, weights=ssr_rate, k=1)) # สุ่ม SSR
                         garuntee = 0
+                    else:
+                        roll_correct = choices(box, weights=rate_box, k=1)
+                        get.append(roll_correct)
+                        if roll_correct in ssr_box: #ถ้าได้ SSR การันตีจะรีกับไปที่ 0
+                            garuntee = 0
                 else:
                     if garuntee == garuntee_option: #ได้ SSR แน่นอน การันตีจะรีกับไปที่ 0
                         get.append(choices(ssr_box, weights=ssr_rate, k=1)) # สุ่ม SSR
                         garuntee = 0
                     else:
-                        get.append(choices(sr_box, weights=sr_rate, k=1)) # สุ่ม SR
-                        if choices(sr_box, weights=sr_rate, k=1) in ssr_box: #ถ้าได้ SSR การันตีจะรีกับไปที่ 0
+                        roll_correct = choices(sr_box, weights=sr_rate, k=1)
+                        get.append(roll_correct) # สุ่ม SR
+                        if roll_correct in ssr_box: #ถ้าได้ SSR การันตีจะรีกับไปที่ 0
                             garuntee = 0
 
 
