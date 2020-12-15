@@ -3,7 +3,7 @@ from tkinter import messagebox
 from random import choices
 
 
-box, item, rate_box, sr_box, sr_rate, ssr_box, ssr_rate, grade = [], [], [], [], [], [], [], []
+box, item, rate_box, sr_ssr_box, sr_ssr_rate, ssr_box, ssr_rate, grade = [], [], [], [], [], [], [], []
 
 
 def clears():
@@ -41,8 +41,8 @@ def get():
 
 
         if tier == "SR" or tier == "SSR":#ประกัน 10
-                    sr_box.append(item_t.get())
-                    sr_rate.append(float(rate_t.get()))
+                    sr_ssr_box.append(item_t.get())
+                    sr_ssr_rate.append(float(rate_t.get()))
                     if tier == "SSR": #ประกันใหญ่
                         ssr_box.append(item_t.get())
                         ssr_rate.append(float(rate_t.get()))
@@ -116,7 +116,7 @@ def sampling_g():
 
     def sampling_calculate_g():
         """Garuntee calculate"""
-        if len(sr_box) == 0 :
+        if len(sr_ssr_box) == 0 :
             messagebox.showerror("Error SR", "Please enter SR")
         elif len(ssr_box) == 0:
             messagebox.showerror("Error SSR", "Please enter SSR")
@@ -150,7 +150,7 @@ def sampling_g():
                         get.append(choices(ssr_box, weights=ssr_rate, k=1)) # สุ่ม SSR
                         garuntee = 0
                     else:
-                        roll_correct = choices(sr_box, weights=sr_rate, k=1)
+                        roll_correct = choices(sr_ssr_box, weights=sr_ssr_rate, k=1)
                         get.append(roll_correct) # สุ่ม SR
                         if roll_correct in ssr_box: #ถ้าได้ SSR การันตีจะรีกับไปที่ 0
                             garuntee = 0
